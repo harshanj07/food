@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .weather-info {
+            text-align: left;
+        }
+
+        .weather-info h2, .weather-info h3 {
+            color: #333;
+        }
+
+        .weather-info p, .weather-info ul {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .weather-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .weather-info ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .weather-info ul li:last-child {
+            border-bottom: none;
+        }
+    </style>
+<body>
+    <h1>Search for Weather Forecast</h1>
+    <form action="/" method="POST">
+        <label for="city_name">City Name:</label>
+        <input type="text" id="city_name" name="city_name" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if weather %}
+        <h2>Weather in {{ weather.location.city }}</h2>
+        <p>Latitude: {{ weather.location.lat }}</p>
+        <p>Longitude: {{ weather.location.long }}</p>
+        <h3>Current Conditions</h3>
+        <p>Temperature: {{ weather.current_observation.condition.temperature }}°F</p>
+        <p>Condition: {{ weather.current_observation.condition.text }}</p>
+        <h3>Forecast</h3>
+        <ul>
+            {% for forecast in weather.forecasts %}
+                <li>
+                    <strong>{{ forecast.day }}:</strong> {{ forecast.text }} (High: {{ forecast.high }}°F, Low: {{ forecast.low }}°F)
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
