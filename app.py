@@ -31,4 +31,4 @@ def index():
     return render_template('index.html', weather=weather)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5545)
+    app.run()
